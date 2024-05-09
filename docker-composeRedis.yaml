@@ -1,0 +1,17 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3.11-management
+    restart: unless-stopped
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=noms
+      - RABBITMQ_DEFAULT_PASS=tutorial
+      - RABBITMQ_DEFAULT_VHOST=integration_environment
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
+
